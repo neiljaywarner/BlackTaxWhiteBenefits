@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.androidexample.blacktax.Networking.RecycleDTO
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.recycle_item.view.*
 
