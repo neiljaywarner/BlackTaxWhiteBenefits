@@ -1,21 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        >
 
-        <ImageView
-                android:id="@+id/imgRecycleItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"  >
-        </ImageView>
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:orientation="vertical"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                        android:padding="4dp"
+        >
 
-        <TextView
-                android:id="@+id/txtTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:padding="8dp"
-                        >
-        </TextView>
-</RelativeLayout>
+                <!-- This view is slightly bigger than the blog image -->
+                <ImageView
+                        android:id="@+id/imgBlogBackground"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:background="#78909C"
+                />
+
+                <ImageView
+                        android:id="@+id/imgBlogGraphic"
+                        android:paddingVertical="8dp"
+                        android:paddingHorizontal="4dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:scaleType="fitCenter"
+                >
+                </ImageView>
+
+                <TextView
+                        android:id="@+id/txtTitle"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="8dp"
+                        android:hint="title"
+                        android:layout_toRightOf="@+id/imgBlogGraphic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17sp"
+                                >
+                </TextView>
+        </RelativeLayout>
+
+    <!-- Generates a line -->
+<View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="#BDBDBD"
+>
+</View>
+</LinearLayout>

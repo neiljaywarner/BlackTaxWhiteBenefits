@@ -3,7 +3,11 @@ package com.androidexample.blacktax
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,15 +16,53 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        var myList = mutableListOf<String>()
-        for (i in 0..20) {
-            myList.add(i,"Record " + i.toString())
+        //
+        // RetrofitClientInstance
+        //
+        val service = RetrofitClientInstance.retrofitInstance?.create(GetBlogService::class.java)
+        val call = service?.getAllArticles()
+
+        var myList = mutableListOf<RecycleDTO>()
+        call?.enqueue(object : Callback<List<BlogArticles>> {
+            override fun onResponse(call: Call<List<BlogArticles>>, response: Response<List<BlogArticles>>) {
+                Log.i("!!!", "retrofit succeeded!")
+                val body = response.body()  // The entire JSON body.
+                var bodyLastIndex= body!!.lastIndex
+
+                // We're converting the weird JSON output to a standard data class.
+                for (i in 0..bodyLastIndex) {
+                    val title = body[i].title.titleRendered ?: " "
+                    var urlLink = body[i].URLLink
+                    val date = body[i].date
+                    val id = body[i].id
+                    val modifiedDate = body[i].modifiedDate
+                    var htmlArticle = body[i].content.htmlRendered
+                    var imageBlogURL = body[i].imageBlogURL
+
+                    // Some condition checks:
+                    if (imageBlogURL=="") imageBlogURL="www.nothing2.url"    // point to an unknown URL so Picasso doesn't fail.
+                    // Adds to the recycler List DTO.
+                   myList.add(i, RecycleDTO(title, urlLink, date, id, modifiedDate, htmlArticle, imageBlogURL))
+                }
+                Log.i("!!!", myList[0].title)
+                displayData(myList)
+            }
+
+            override fun onFailure(call: Call<List<BlogArticles>>, t: Throwable) {
+                Log.i("!!!", "retrofit failed!")
+            }
+        })
+    }
+
+    fun displayData(list : MutableList<RecycleDTO>) {
+        //
+        // RecyclerView
+        //
+        recyclerView.apply {
+            val llm = LinearLayoutManager(this@MainActivity)
+            val adapter = Adapter(list)
+            recyclerView.adapter=adapter
+            recyclerView.layoutManager=llm
         }
-
-        val llm = LinearLayoutManager(this)
-        val adapter = Adapter(myList)
-        recyclerView.adapter=adapter
-        recyclerView.layoutManager=llm
-
     }
 }
