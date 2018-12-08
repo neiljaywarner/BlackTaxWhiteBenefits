@@ -1,5 +1,6 @@
 package com.androidexample.blacktax
 
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,9 +11,10 @@ import android.widget.TextView
 import com.androidexample.blacktax.Networking.RecycleDTO
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.recycle_item.view.*
+import java.util.*
 
 class Adapter(val myList: MutableList<RecycleDTO>): RecyclerView.Adapter<Adapter.ViewHolder>() {
-   var currentRow: Int = 0
+    var currentRow: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.recycle_item, parent, false)
@@ -38,11 +40,27 @@ class Adapter(val myList: MutableList<RecycleDTO>): RecyclerView.Adapter<Adapter
         val titleView: TextView = v.txtTitle
         val imageView: ImageView = v.imgBlogGraphic
 
+
+
         init {
             v.setOnClickListener(this)
         }
-        override fun onClick(p0: View?) {
+
+        override fun onClick(v: View?) {
             Log.i("!!!", "clicked on row: " +  titleView.text)
+
+            val position  = layoutPosition
+
+            val webViewDataArray = ArrayList<String>(4)
+            webViewDataArray.add(0, ProjectData.myList.get(position).date)
+            webViewDataArray.add(1, ProjectData.myList.get(position).title)
+            webViewDataArray.add(2, ProjectData.myList.get(position).imageBlogURL)
+            webViewDataArray.add(3, ProjectData.myList.get(position).htmlArticle)
+
+            val mIntentWebViewActivity = Intent(v?.context, WebViewActivity::class.java)
+            // pass in some data to the intent.
+            mIntentWebViewActivity.putStringArrayListExtra(ProjectData.putExtra_BlogWebView, webViewDataArray)
+            v?.context?.startActivity(mIntentWebViewActivity)
         }
     }
 }

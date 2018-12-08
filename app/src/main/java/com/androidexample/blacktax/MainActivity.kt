@@ -26,10 +26,12 @@ class MainActivity : AppCompatActivity() {
         //
         // RetrofitClientInstance
         //
+
         val service = RetrofitClientInstance.retrofitInstance?.create(GetBlogService::class.java)
+
         val call = service?.getAllArticles("2")
 
-        var myList = mutableListOf<RecycleDTO>()
+
         call?.enqueue(object : Callback<List<BlogArticles>> {
             override fun onResponse(call: Call<List<BlogArticles>>, response: Response<List<BlogArticles>>) {
                 // Retrofit succeeded to get networking and is hitting main url.
@@ -53,11 +55,11 @@ class MainActivity : AppCompatActivity() {
                         if (imageBlogURL == "") imageBlogURL =
                                 "www.nothing2.url"    // point to an unknown URL so Picasso doesn't fail.
                         // Adds to the recycler List DTO.
-                        myList.add(i, RecycleDTO(title, urlLink, date, id, modifiedDate, htmlArticle, imageBlogURL))
+                        ProjectData.myList.add(i, RecycleDTO(title, urlLink, date, id, modifiedDate, htmlArticle, imageBlogURL))
                     }
 
-                    Log.i("!!!", myList[0].title)
-                    displayData(myList)
+                    Log.i("!!!", ProjectData.myList[0].title)
+                    displayData(ProjectData.myList)
                 } else {
                     // no data in query.
                     if (response.code()==400) {
