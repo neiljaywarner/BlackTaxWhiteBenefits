@@ -52,6 +52,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    override fun onStop() {
+        super.onStop()
+
+        // Clears out the contents of this.
+        ProjectData.myList.clear()
+    }
+
 
     private fun initialize() {
         butFirstPage.text="<<"
@@ -86,18 +93,25 @@ class MainActivity : AppCompatActivity() {
             if (ProjectData.currentPage==1) {
                 butPagePrev.isEnabled = false
             }
+            ProjectData.myList.clear()
             runEnqueue(service, ProjectData.currentPage)
         }
 
         butPageNext.setOnClickListener {
             ProjectData.currentPage++
+            if (ProjectData.currentPage==ProjectData.maxPagesAtCompile) {
+                butPageNext.isEnabled = false
+            }
             butPagePrev.isEnabled=true
+            ProjectData.myList.clear()
             runEnqueue(service, ProjectData.currentPage)
         }
 
         butFirstPage.setOnClickListener {
             ProjectData.currentPage=1
             butPagePrev.isEnabled=false
+            butPageNext.isEnabled=true
+            ProjectData.myList.clear()
             runEnqueue(service, ProjectData.currentPage)
         }
 
@@ -105,6 +119,7 @@ class MainActivity : AppCompatActivity() {
             ProjectData.currentPage=ProjectData.maxPagesAtCompile
             butPageNext.isEnabled=false
             butPagePrev.isEnabled=true
+            ProjectData.myList.clear()
             runEnqueue(service, ProjectData.currentPage)
         }
     }
@@ -112,6 +127,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun runEnqueue(service: GetBlogService?, currentPage: Int = 1) {
         val call = service?.getAllArticles(currentPage.toString())
+//        val call = service?.getAllArticles("2")
         call?.enqueue(object : Callback<List<BlogArticles>> {
             override fun onResponse(call: Call<List<BlogArticles>>, response: Response<List<BlogArticles>>) {
                 // Retrofit succeeded to get networking and is hitting main url.
