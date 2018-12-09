@@ -3,6 +3,7 @@ package com.androidexample.blacktax
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.webkit.WebSettings
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_webview.*
 import java.text.SimpleDateFormat
@@ -29,7 +30,9 @@ class WebViewActivity: AppCompatActivity() {
         }
         title=titleData
 
+        //
         // Load the Posted Date
+        //
         // See also on Dates: https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
         // https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html
         // This is the format of the blog: 2018-11-21T
@@ -42,14 +45,26 @@ class WebViewActivity: AppCompatActivity() {
         var modDate="Posted Date: " + postedDate
         txtWebViewPostedDate.setText(modDate)
 
+        //
         // Load the image
+        //
         Picasso.get().load(blogArticleData[2]).into(imgWebView)
 
         // Lastly, load the webview.
         // Note: WebView just needs the html from JSON...it automatically enters in the HTML header info.
         var htmlContext = blogArticleData[3]
         webview.loadData(htmlContext, "text/html", "UTF-8")
+
+
+        //
+        // Changes Webview HTML text size!!
+        //
+        val websettings : WebSettings = webview.settings
+//        var fontSize: Int = resources.getDimension(R.dimen.htmlTextSize).toInt()
+        websettings.setDefaultFontSize(ProjectData.htmlTextSize)
     }
+
+
 
     private fun parseDate(postedDate: String?): String {
         // Format the date is coming in...

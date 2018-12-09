@@ -8,7 +8,7 @@
             android:id="@+id/imgWebView"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             android:paddingBottom="2dp"
     >
     </ImageView>
@@ -19,14 +19,19 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/imgWebView"
             android:hint="Posted Date: 11/21/2018"
-            android:textSize="12dp"
+            android:gravity="center_horizontal"
+            android:textSize="16sp"
             android:textStyle="italic"
-            android:paddingBottom="8dp"
+            android:paddingTop="12dp"
+            android:paddingLeft="8dp"
     >
     </TextView>
 
+    <!-- android:background="@android:color/transparent" -->
+
     <WebView
             android:id="@+id/webview"
+            android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtWebViewPostedDate"

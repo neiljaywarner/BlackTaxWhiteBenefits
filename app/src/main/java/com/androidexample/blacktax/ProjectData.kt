@@ -13,5 +13,7 @@ object ProjectData {
     var currentPage = 1
     var maxPage = maxPagesAtCompile
     var onSavedState = false
+    val htmlTextSizeDefault = 22
+    var htmlTextSize = htmlTextSizeDefault
 }
 
