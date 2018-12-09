@@ -48,7 +48,13 @@ class WebViewActivity: AppCompatActivity() {
         //
         // Load the image
         //
-        Picasso.get().load(blogArticleData[2]).into(imgWebView)
+        if (blogArticleData[2] != "") {
+            Picasso.get().load(blogArticleData[2]).into(imgWebView)
+        } else {
+            // Load default image.
+            Picasso.get().load(R.drawable.noimage).into(imgWebView)
+        }
+
 
         // Lastly, load the webview.
         // Note: WebView just needs the html from JSON...it automatically enters in the HTML header info.
@@ -63,6 +69,7 @@ class WebViewActivity: AppCompatActivity() {
 //        var fontSize: Int = resources.getDimension(R.dimen.htmlTextSize).toInt()
         websettings.setDefaultFontSize(ProjectData.htmlTextSize)
     }
+
 
     private fun blogDateConversion(s: String): String {
         // This is the format of the blog: 2018-11-21T21:10:05      (YYYY/month//day/T/hour/min/sec
