@@ -1,18 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+>
+
+    <!--MinWidth and Minheight are needed as Buttons default to 48dp! -->
+    <Button
+            android:id="@+id/butFirstPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="25dp"
+            android:minWidth="25dp"
+            android:padding="0dp"
+    >
+    </Button>
+
+    <Button
+            android:id="@+id/butPagePrev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="25dp"
+            android:minWidth="25dp"
+            android:padding="0dp"
+            android:layout_toRightOf="@+id/butFirstPage"
+            >
+    </Button>
+
+
+    <!--MinWidth and Minheight are needed as Buttons default to 48dp! -->
+    <Button
+            android:id="@+id/butPageNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/butPagePrev"
+            android:minHeight="25dp"
+            android:minWidth="25dp"
+            android:padding="0dp"
+             >
+    </Button>
+
+    <Button
+            android:id="@+id/butLastPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="25dp"
+            android:minWidth="25dp"
+            android:padding="0dp"
+            android:layout_toRightOf="@+id/butPageNext"
+    >
+    </Button>
+
+    <!--<ActionMenuView -->
+            <!--android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+            <!--android:layout_toRightOf="@+id/butPageNext" >-->
+    <!--</ActionMenuView>-->
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
+            android:paddingTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
             android:scrollbarSize="4dp"
-    >
+            android:layout_below="@+id/butPagePrev"   >
 
     </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+</RelativeLayout>
 
 

@@ -18,20 +18,79 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
+    // Retrofit service.
+    val service = RetrofitClientInstance.retrofitInstance?.create(GetBlogService::class.java)
+    var enqueueFailed=false
+    var enqueueInitialization=false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initialize()
+        setupListeners()
 
         //
         // RetrofitClientInstance
         //
+        runEnqueue(service)
+    }
 
-        val service = RetrofitClientInstance.retrofitInstance?.create(GetBlogService::class.java)
+    private fun initialize() {
+        butFirstPage.text="<<"
+        butPagePrev.text="<"
+        butPageNext.text=">"
+        butLastPage.text=">>"
 
-        val call = service?.getAllArticles("2")
+        // initially, we don't this button active as there is no page 0.
+        butPagePrev.isEnabled=false
+
+        //Todo: To truly find out the last page at runtime, then we need a coroutine listener or something.
+//        // loop thru pages to see what is the last page on the URL.
+//        enqueueInitialization=true
+//        var currentURLPage = ProjectData.maxPagesAtCompile
+//        while (enqueueFailed==false) {
+//            runEnqueue(service, currentURLPage)
+//            currentURLPage++
+//        }
+//
+//        enqueueInitialization=false
+    }
 
 
+    private fun setupListeners() {
+        butPagePrev.setOnClickListener {
+            ProjectData.currentPage--
+            butPageNext.isEnabled = true
+            if (ProjectData.currentPage==1) {
+                butPagePrev.isEnabled = false
+            }
+            runEnqueue(service, ProjectData.currentPage)
+        }
+
+        butPageNext.setOnClickListener {
+            ProjectData.currentPage++
+            butPagePrev.isEnabled=true
+            runEnqueue(service, ProjectData.currentPage)
+        }
+
+        butFirstPage.setOnClickListener {
+            ProjectData.currentPage=1
+            butPagePrev.isEnabled=false
+            runEnqueue(service, ProjectData.currentPage)
+        }
+
+        butLastPage.setOnClickListener {
+            ProjectData.currentPage=ProjectData.maxPagesAtCompile
+            butPageNext.isEnabled=false
+            butPagePrev.isEnabled=true
+            runEnqueue(service, ProjectData.currentPage)
+        }
+    }
+
+
+    private fun runEnqueue(service: GetBlogService?, currentPage: Int = 1) {
+        val call = service?.getAllArticles(currentPage.toString())
         call?.enqueue(object : Callback<List<BlogArticles>> {
             override fun onResponse(call: Call<List<BlogArticles>>, response: Response<List<BlogArticles>>) {
                 // Retrofit succeeded to get networking and is hitting main url.
@@ -39,7 +98,7 @@ class MainActivity : AppCompatActivity() {
                 Log.i("!!!", "retrofit succeeded!")
                 if (response.isSuccessful) {
                     val body = response.body()  // The entire JSON body.
-                    var bodyLastIndex= body!!.lastIndex
+                    var bodyLastIndex = body!!.lastIndex
 
                     // We're converting the weird JSON output to a standard data class.
                     for (i in 0..bodyLastIndex) {
@@ -55,15 +114,20 @@ class MainActivity : AppCompatActivity() {
                         if (imageBlogURL == "") imageBlogURL =
                                 "www.nothing2.url"    // point to an unknown URL so Picasso doesn't fail.
                         // Adds to the recycler List DTO.
-                        ProjectData.myList.add(i, RecycleDTO(title, urlLink, date, id, modifiedDate, htmlArticle, imageBlogURL))
+                        ProjectData.myList.add(
+                            i,
+                            RecycleDTO(title, urlLink, date, id, modifiedDate, htmlArticle, imageBlogURL)
+                        )
                     }
 
                     Log.i("!!!", ProjectData.myList[0].title)
                     displayData(ProjectData.myList)
                 } else {
                     // no data in query.
-                    if (response.code()==400) {
+                    if (response.code() == 400) {
+                        // Thankfully, the recyclerView doesn't fail here.
                         Log.i("!!!", "query is not found in retrofit!!")
+                        hitLastPage()
                     }
                 }
             }
@@ -73,6 +137,16 @@ class MainActivity : AppCompatActivity() {
                 Log.i("!!!", "retrofit failed!")
             }
         })
+    }
+
+    private fun hitLastPage() {
+        if (enqueueInitialization) {
+            //  Determining last page...user didn't do this.
+            ProjectData.maxPage=ProjectData.currentPage - 1
+        } else {
+            ProjectData.currentPage--
+            butPageNext.isEnabled=false
+        }
     }
 
     fun displayData(list : MutableList<RecycleDTO>) {
