@@ -16,8 +16,8 @@
                 <!-- This view is slightly bigger than the blog image -->
                 <ImageView
                         android:id="@+id/imgBlogBackground"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"
+                        android:layout_width="@dimen/imgBlogSizeBorder"
+                        android:layout_height="@dimen/imgBlogSizeBorder"
                         android:background="#78909C"
                 />
 
@@ -25,8 +25,8 @@
                         android:id="@+id/imgBlogGraphic"
                         android:paddingVertical="8dp"
                         android:paddingHorizontal="4dp"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="@dimen/imgBlogSize"
+                        android:layout_height="@dimen/imgBlogSize"
                         android:scaleType="fitCenter"
                 >
                 </ImageView>

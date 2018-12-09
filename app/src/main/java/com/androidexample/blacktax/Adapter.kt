@@ -30,7 +30,12 @@ class Adapter(val myList: MutableList<RecycleDTO>): RecyclerView.Adapter<Adapter
 
         // Note: Image URL cannot be null.
         // URL can be a non-existant URL but does need to be something.
-        Picasso.get().load(myList[position].imageBlogURL).into(holder.imageView)
+        if (myList[position].imageBlogURL != "") {
+            Picasso.get().load(myList[position].imageBlogURL).into(holder.imageView)
+        } else {
+            // Load default image.
+            Picasso.get().load(R.drawable.noimage).into(holder.imageView)
+        }
     }
 
 

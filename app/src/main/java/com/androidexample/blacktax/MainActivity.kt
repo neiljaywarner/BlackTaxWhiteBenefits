@@ -148,8 +148,8 @@ class MainActivity : AppCompatActivity() {
                         var imageBlogURL = body[i].imageBlogURL
 
                         // Some condition checks:
-                        if (imageBlogURL == "") imageBlogURL =
-                                "www.nothing2.url"    // point to an unknown URL so Picasso doesn't fail.
+//                        if (imageBlogURL == "") imageBlogURL =
+//                                "www.nothing2.url"    // point to an unknown URL so Picasso doesn't fail.
                         // Adds to the recycler List DTO.
                         ProjectData.myList.add(
                             i,

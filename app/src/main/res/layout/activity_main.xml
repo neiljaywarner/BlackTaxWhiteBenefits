@@ -10,8 +10,8 @@
             android:id="@+id/butFirstPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minHeight="25dp"
-            android:minWidth="25dp"
+            android:minHeight="@dimen/pageButtonSize"
+            android:minWidth="@dimen/pageButtonSize"
             android:padding="0dp"
     >
     </Button>
@@ -20,8 +20,8 @@
             android:id="@+id/butPagePrev"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minHeight="25dp"
-            android:minWidth="25dp"
+            android:minHeight="@dimen/pageButtonSize"
+            android:minWidth="@dimen/pageButtonSize"
             android:padding="0dp"
             android:layout_toRightOf="@+id/butFirstPage"
             >
@@ -34,8 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/butPagePrev"
-            android:minHeight="25dp"
-            android:minWidth="25dp"
+            android:minHeight="@dimen/pageButtonSize"
+            android:minWidth="@dimen/pageButtonSize"
             android:padding="0dp"
              >
     </Button>
@@ -44,8 +44,8 @@
             android:id="@+id/butLastPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minHeight="25dp"
-            android:minWidth="25dp"
+            android:minHeight="@dimen/pageButtonSize"
+            android:minWidth="@dimen/pageButtonSize"
             android:padding="0dp"
             android:layout_toRightOf="@+id/butPageNext"
     >
