@@ -16,6 +16,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// ToDo: Bug: For some reason, if you go to the last page then rotate the screen, you get multiple duplicate items
+//   showing up for some strange reason....only on last page.
+
+
 class MainActivity : AppCompatActivity() {
 
     // Retrofit service.
@@ -33,8 +37,21 @@ class MainActivity : AppCompatActivity() {
         //
         // RetrofitClientInstance
         //
-        runEnqueue(service)
+        runEnqueue(service, ProjectData.currentPage)
+
     }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        // For some reason, this doesn't work if outPersistentState exists!
+        super.onSaveInstanceState(outState)
+        ProjectData.onSavedState=true
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+    }
+
+
 
     private fun initialize() {
         butFirstPage.text="<<"
@@ -43,9 +60,13 @@ class MainActivity : AppCompatActivity() {
         butLastPage.text=">>"
 
         // initially, we don't this button active as there is no page 0.
-        butPagePrev.isEnabled=false
+        if  (!ProjectData.onSavedState) {
+            butPagePrev.isEnabled=false
+        }
 
-        //Todo: To truly find out the last page at runtime, then we need a coroutine listener or something.
+
+
+        //ToDo: To truly find out the last page at runtime, then we need a coroutine listener or something.
 //        // loop thru pages to see what is the last page on the URL.
 //        enqueueInitialization=true
 //        var currentURLPage = ProjectData.maxPagesAtCompile

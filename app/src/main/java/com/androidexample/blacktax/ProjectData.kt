@@ -12,5 +12,6 @@ object ProjectData {
     var myList = mutableListOf<RecycleDTO>()
     var currentPage = 1
     var maxPage = maxPagesAtCompile
+    var onSavedState = false
 }
 
