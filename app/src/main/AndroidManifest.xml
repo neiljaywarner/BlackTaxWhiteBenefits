@@ -24,7 +24,6 @@
 
         <activity android:name="com.androidexample.blacktax.WebViewActivity"
                   android:label="Blog Item"
-                  android:screenOrientation="portrait"
         />
     </application>
 

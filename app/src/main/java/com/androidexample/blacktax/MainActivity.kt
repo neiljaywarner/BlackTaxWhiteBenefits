@@ -16,8 +16,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-// ToDo: Bug: For some reason, if you go to the last page then rotate the screen, you get multiple duplicate items
-//   showing up for some strange reason....only on last page.
+// ToDo: Bug: when you go to the last page, then rotate it then open the item.  It always shows up in protrait mode.
+// ToDo: Bug: when you go to the last page, then rotate it then rotate it back, the next page button is now lit up!  But its at the last page, so it shouldn't be lit up!
+
 
 
 class MainActivity : AppCompatActivity() {
