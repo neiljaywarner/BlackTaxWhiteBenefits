@@ -39,7 +39,7 @@ class Adapter(val myList: MutableList<RecycleDTO>): RecyclerView.Adapter<Adapter
     }
 
 
-    class ViewHolder (val v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
+    inner class ViewHolder (val v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
         // No findViewById() because this version of Android Studio uses
         //    kotlin-android-extensions plugin, which avoids the use of needing findViewById().
         val titleView: TextView = v.txtTitle
@@ -57,10 +57,10 @@ class Adapter(val myList: MutableList<RecycleDTO>): RecyclerView.Adapter<Adapter
             val position  = layoutPosition
 
             val webViewDataArray = ArrayList<String>(4)
-            webViewDataArray.add(0, ProjectData.myList.get(position).date)
-            webViewDataArray.add(1, ProjectData.myList.get(position).title)
-            webViewDataArray.add(2, ProjectData.myList.get(position).imageBlogURL)
-            webViewDataArray.add(3, ProjectData.myList.get(position).htmlArticle)
+            webViewDataArray.add(0, myList.get(position).date)
+            webViewDataArray.add(1, myList.get(position).title)
+            webViewDataArray.add(2, myList.get(position).imageBlogURL)
+            webViewDataArray.add(3, myList.get(position).htmlArticle)
 
             val mIntentWebViewActivity = Intent(v?.context, WebViewActivity::class.java)
             // pass in some data to the intent.

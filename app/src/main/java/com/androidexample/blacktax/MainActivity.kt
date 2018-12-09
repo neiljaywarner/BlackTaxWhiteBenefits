@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     val service = RetrofitClientInstance.retrofitInstance?.create(GetBlogService::class.java)
     var enqueueFailed=false
     var enqueueInitialization=false
+    var myList = mutableListOf<RecycleDTO>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,9 +55,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-
-        // Clears out the contents of this.
-        ProjectData.myList.clear()
     }
 
 
@@ -71,6 +69,8 @@ class MainActivity : AppCompatActivity() {
             butPagePrev.isEnabled=false
         }
 
+
+//        pageButtonsSaveState(true)
 
 
         //ToDo: To truly find out the last page at runtime, then we need a coroutine listener or something.
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
             if (ProjectData.currentPage==1) {
                 butPagePrev.isEnabled = false
             }
-            ProjectData.myList.clear()
+            myList.clear()
             runEnqueue(service, ProjectData.currentPage)
         }
 
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                 butPageNext.isEnabled = false
             }
             butPagePrev.isEnabled=true
-            ProjectData.myList.clear()
+            myList.clear()
             runEnqueue(service, ProjectData.currentPage)
         }
 
@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
             ProjectData.currentPage=1
             butPagePrev.isEnabled=false
             butPageNext.isEnabled=true
-            ProjectData.myList.clear()
+            myList.clear()
             runEnqueue(service, ProjectData.currentPage)
         }
 
@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
             ProjectData.currentPage=ProjectData.maxPagesAtCompile
             butPageNext.isEnabled=false
             butPagePrev.isEnabled=true
-            ProjectData.myList.clear()
+            myList.clear()
             runEnqueue(service, ProjectData.currentPage)
         }
     }
@@ -127,7 +127,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun runEnqueue(service: GetBlogService?, currentPage: Int = 1) {
         val call = service?.getAllArticles(currentPage.toString())
-//        val call = service?.getAllArticles("2")
         call?.enqueue(object : Callback<List<BlogArticles>> {
             override fun onResponse(call: Call<List<BlogArticles>>, response: Response<List<BlogArticles>>) {
                 // Retrofit succeeded to get networking and is hitting main url.
@@ -151,20 +150,23 @@ class MainActivity : AppCompatActivity() {
 //                        if (imageBlogURL == "") imageBlogURL =
 //                                "www.nothing2.url"    // point to an unknown URL so Picasso doesn't fail.
                         // Adds to the recycler List DTO.
-                        ProjectData.myList.add(
+                        this@MainActivity.myList.add(
                             i,
                             RecycleDTO(title, urlLink, date, id, modifiedDate, htmlArticle, imageBlogURL)
                         )
                     }
 
-                    Log.i("!!!", ProjectData.myList[0].title)
-                    displayData(ProjectData.myList)
+                    Log.i("!!!", this@MainActivity.myList[0].title)
+                    displayData(this@MainActivity.myList)
+//                    pageButtonsSaveState(false)
+
                 } else {
                     // no data in query.
                     if (response.code() == 400) {
                         // Thankfully, the recyclerView doesn't fail here.
                         Log.i("!!!", "query is not found in retrofit!!")
                         hitLastPage()
+//                        pageButtonsSaveState(false)
                     }
                 }
             }
@@ -176,6 +178,30 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun pageButtonsSaveState(initial: Boolean = true) {
+        // Enables the paging buttons..the reason I have to do this is that if enabled, before Retrofit loads, if
+        //   fails to open the correct page.
+
+        if (initial) {
+            // save button sates
+            ProjectData.butFirstPageState = butFirstPage.isEnabled
+            ProjectData.butLastPageState = butLastPage.isEnabled
+            ProjectData.butPrevPageState = butPagePrev.isEnabled
+            ProjectData.butNextPageState = butPageNext.isEnabled
+
+            // now disable them until Retrofit enqueue is completed.
+            butFirstPage.isEnabled=false
+            butLastPage.isEnabled=false
+            butPagePrev.isEnabled=false
+            butPageNext.isEnabled=false
+        } else {
+            butFirstPage.isEnabled=ProjectData.butFirstPageState
+            butLastPage.isEnabled=ProjectData.butLastPageState
+            butPagePrev.isEnabled=ProjectData.butPrevPageState
+            butPageNext.isEnabled=ProjectData.butNextPageState
+        }
+    }
+
     private fun hitLastPage() {
         if (enqueueInitialization) {
             //  Determining last page...user didn't do this.
@@ -183,6 +209,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             ProjectData.currentPage--
             butPageNext.isEnabled=false
+            ProjectData.butNextPageState=butPageNext.isEnabled
         }
     }
 

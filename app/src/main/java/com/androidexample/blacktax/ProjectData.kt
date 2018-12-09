@@ -1,7 +1,5 @@
 package com.androidexample.blacktax
 
-import com.androidexample.blacktax.Networking.RecycleDTO
-
 object ProjectData {
     var myListRecordNum = -1
 
@@ -9,11 +7,16 @@ object ProjectData {
     val maxPagesAtCompile = 5
 
     val putExtra_BlogWebView: String = "EXTRA_BLOGWEBVIEW"
-    var myList = mutableListOf<RecycleDTO>()
     var currentPage = 1
     var maxPage = maxPagesAtCompile
     var onSavedState = false
     val htmlTextSizeDefault = 22
     var htmlTextSize = htmlTextSizeDefault
+
+    //button states
+    var butFirstPageState = false
+    var butLastPageState = false
+    var butPrevPageState = false
+    var butNextPageState = false
 }
 

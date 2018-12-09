@@ -35,14 +35,14 @@ class WebViewActivity: AppCompatActivity() {
         //
         // See also on Dates: https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
         // https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html
-        // This is the format of the blog: 2018-11-21T
-//        var postedDate="2018-11-21T21:10:05"   (YYYY/month//day/T/hour/min/sec
-        val postedDate=blogArticleData[0]
-//        var modDate = parseDate(postedDate)
+
+        // This is the format of the blog: 2018-11-21T21:10:05      (YYYY/month//day/T/hour/min/sec
+//        val postedDate=blogArticleData[0]
+        var modPostedDate = blogDateConversion(blogArticleData[0])
 
 
 //        var newDate = postedDate.subSequence(0, postedDate.indexOf("T", ignoreCase = true))
-        var modDate="Posted Date: " + postedDate
+        var modDate="Posted Date: " + modPostedDate
         txtWebViewPostedDate.setText(modDate)
 
         //
@@ -64,6 +64,24 @@ class WebViewActivity: AppCompatActivity() {
         websettings.setDefaultFontSize(ProjectData.htmlTextSize)
     }
 
+    private fun blogDateConversion(s: String): String {
+        // This is the format of the blog: 2018-11-21T21:10:05      (YYYY/month//day/T/hour/min/sec
+
+        // Remove the T section.
+        var tPos=s.indexOf("T", ignoreCase = true)
+        var modifiedDate=s.substring(0,tPos)
+
+        var yearPos=modifiedDate.indexOf("-")
+        var year=modifiedDate.substring(0,yearPos)
+
+        var monthPos=modifiedDate.indexOf("-", yearPos+1)
+        var month=modifiedDate.substring(yearPos+1,monthPos)
+
+        var dayPos=modifiedDate.indexOf("-", monthPos+1)
+        var day=modifiedDate.substring(monthPos+1,modifiedDate.length)
+
+        return month  + "/" + day + "/" + year
+    }
 
 
     private fun parseDate(postedDate: String?): String {
