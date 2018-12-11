@@ -7,43 +7,53 @@
         >
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:orientation="vertical"
+                      android:orientation="horizontal"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                         android:padding="4dp"
         >
 
-                <!-- This view is slightly bigger than the blog image -->
-                <ImageView
-                        android:id="@+id/imgBlogBackground"
+                <!-- acts as an imageview -->
+                <RelativeLayout
+                        android:id="@+id/rlrecycleitem"
                         android:layout_width="@dimen/imgBlogSizeBorder"
                         android:layout_height="@dimen/imgBlogSizeBorder"
                         android:background="#78909C"
-                />
+                        android:paddingLeft="2dp"
 
-                <ImageView
-                        android:id="@+id/imgBlogGraphic"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:layout_width="@dimen/imgBlogSize"
-                        android:layout_height="@dimen/imgBlogSize"
-                        android:scaleType="fitCenter"
                 >
-                </ImageView>
 
+                        <!-- This view is slightly bigger than imgBlogGraphic -->
+                        <!--<ImageView-->
+                                <!--android:id="@+id/imgBlogBackground"-->
+                                <!--android:layout_width="@dimen/imgBlogSizeBorder"-->
+                                <!--android:layout_height="@dimen/imgBlogSizeBorder"-->
+                                <!--android:background="#78909C"-->
+                                <!--android:scaleType="fitCenter"-->
+                        <!--/>-->
+
+                        <ImageView
+                                android:id="@+id/imgBlogGraphic"
+                                android:padding="4dp"
+                                android:layout_width="@dimen/imgBlogSize"
+                                android:layout_height="@dimen/imgBlogSize"
+                                android:scaleType="fitCenter"
+                        >
+                        </ImageView>
+                </RelativeLayout>
+
+                <!-- android:paddingBottom="20dp" - makes the centering look just a bit better -->
                 <TextView
                         android:id="@+id/txtTitle"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:paddingTop="6dp"
-                        android:paddingBottom="6dp"
-                        android:hint="title"
-                        android:layout_toRightOf="@+id/imgBlogGraphic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:hint="title"
                         android:textSize="17sp"
+                        android:paddingBottom="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/rlrecycleitem"
                                 >
                 </TextView>
         </RelativeLayout>

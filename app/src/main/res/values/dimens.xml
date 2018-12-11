@@ -3,7 +3,7 @@
     <dimen name="pageButtonSize">60dp</dimen>
 
     <!-- imgBlogSizeBorder should be 2dp bigger than imgBlogSize! -->
-    <dimen name="imgBlogSizeBorder">142dp</dimen>
+    <dimen name="imgBlogSizeBorder">144dp</dimen>
     <dimen name="imgBlogSize">140dp</dimen>
     <!--<dimen name="htmlTextSize">22sp</dimen>-->
 </resources>

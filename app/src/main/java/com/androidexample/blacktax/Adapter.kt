@@ -34,7 +34,7 @@ class Adapter(val myList: MutableList<RecycleDTO>): RecyclerView.Adapter<Adapter
             Picasso.get().load(myList[position].imageBlogURL).into(holder.imageView)
         } else {
             // Load default image.
-            Picasso.get().load(R.drawable.noimage).into(holder.imageView)
+            Picasso.get().load(R.drawable.no_image).into(holder.imageView)
         }
     }
 

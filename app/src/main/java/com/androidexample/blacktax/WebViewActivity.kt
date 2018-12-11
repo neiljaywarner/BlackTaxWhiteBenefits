@@ -52,7 +52,7 @@ class WebViewActivity: AppCompatActivity() {
             Picasso.get().load(blogArticleData[2]).into(imgWebView)
         } else {
             // Load default image.
-            Picasso.get().load(R.drawable.noimage).into(imgWebView)
+            Picasso.get().load(R.drawable.no_image).into(imgWebView)
         }
 
 
