@@ -181,6 +181,7 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<List<BlogArticles>>, t: Throwable) {
                 // Networking failed or cannog get to URL.
                 Log.i("!!!", "retrofit failed!")
+                stopProgressBar()
             }
         })
     }
