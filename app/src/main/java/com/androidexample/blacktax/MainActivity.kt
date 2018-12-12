@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
 import com.androidexample.blacktax.Networking.BlogArticles
 import com.androidexample.blacktax.Networking.GetBlogService
 import com.androidexample.blacktax.Networking.RecycleDTO
@@ -127,6 +128,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun runEnqueue(service: GetBlogService?, currentPage: Int = 1) {
+        progressBar1.visibility=View.VISIBLE
+
         val call = service?.getAllArticles(currentPage.toString())
         call?.enqueue(object : Callback<List<BlogArticles>> {
             override fun onResponse(call: Call<List<BlogArticles>>, response: Response<List<BlogArticles>>) {
@@ -161,6 +164,7 @@ class MainActivity : AppCompatActivity() {
                     Log.i("!!!", this@MainActivity.myList[0].title)
                     displayData(this@MainActivity.myList)
 //                    pageButtonsSaveState(false)
+                    stopProgressBar()
 
                 } else {
                     // no data in query.
@@ -170,6 +174,7 @@ class MainActivity : AppCompatActivity() {
                         hitLastPage()
 //                        pageButtonsSaveState(false)
                     }
+                    stopProgressBar()
                 }
             }
 
@@ -179,6 +184,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun stopProgressBar() {
+        progressBar1.visibility=View.INVISIBLE
+    }
+
 
     private fun parseTitle(title: String): String {
         var titleMod = title

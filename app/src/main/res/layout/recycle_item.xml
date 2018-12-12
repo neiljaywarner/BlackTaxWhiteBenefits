@@ -18,7 +18,7 @@
                         android:id="@+id/rlrecycleitem"
                         android:layout_width="@dimen/imgBlogSizeBorder"
                         android:layout_height="@dimen/imgBlogSizeBorder"
-                        android:background="#78909C"
+                        android:background="@color/widget_background_color"
                         android:paddingLeft="2dp"
 
                 >
