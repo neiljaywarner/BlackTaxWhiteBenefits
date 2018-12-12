@@ -59,7 +59,7 @@ class WebViewActivity: AppCompatActivity() {
         // Lastly, load the webview.
         // Note: WebView just needs the html from JSON...it automatically enters in the HTML header info.
         var htmlContext = blogArticleData[3]
-        webview.loadData(htmlContext, "text/html", "UTF-8")
+        webview.loadData(htmlContext, "text/html; charset=UTF-8", null)
 
 
         //

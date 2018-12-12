@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity() {
 
                     // We're converting the weird JSON output to a standard data class.
                     for (i in 0..bodyLastIndex) {
-                        val title = body[i].title.titleRendered ?: " "
+                        var title = body[i].title.titleRendered
                         var urlLink = body[i].URLLink
                         val date = body[i].date
                         val id = body[i].id
@@ -147,9 +147,10 @@ class MainActivity : AppCompatActivity() {
                         var htmlArticle = body[i].content.htmlRendered
                         var imageBlogURL = body[i].imageBlogURL
 
-                        // Some condition checks:
-//                        if (imageBlogURL == "") imageBlogURL =
-//                                "www.nothing2.url"    // point to an unknown URL so Picasso doesn't fail.
+                        // Strips off some of the html codes that are not displaying correctly.
+                        title=parseTitle(title)
+
+
                         // Adds to the recycler List DTO.
                         this@MainActivity.myList.add(
                             i,
@@ -179,6 +180,18 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun parseTitle(title: String): String {
+        var titleMod = title
+
+        titleMod=titleMod.replace(" &#8220;", " \"")
+        titleMod=titleMod.replace("&#8221;", "\"")
+        titleMod=titleMod.replace(" &#8212", "")
+
+        return titleMod
+    }
+
+
+
     private fun pageButtonsSaveState(initial: Boolean = true) {
         // Enables the paging buttons..the reason I have to do this is that if enabled, before Retrofit loads, if
         //   fails to open the correct page.
@@ -202,6 +215,7 @@ class MainActivity : AppCompatActivity() {
             butPageNext.isEnabled=ProjectData.butNextPageState
         }
     }
+
 
     private fun hitLastPage() {
         if (enqueueInitialization) {
