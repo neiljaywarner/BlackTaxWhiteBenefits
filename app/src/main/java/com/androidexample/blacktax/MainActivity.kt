@@ -17,10 +17,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-// ToDo: Bug: when you go to the last page, then rotate it then open the item.  It always shows up in protrait mode.
-// ToDo: Bug: when you go to the last page, then rotate it then rotate it back, the next page button is now lit up!  But its at the last page, so it shouldn't be lit up!
-
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,11 +40,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     override fun onSaveInstanceState(outState: Bundle?) {
         // For some reason, this doesn't work if outPersistentState exists!
         super.onSaveInstanceState(outState)
         ProjectData.onSavedState=true
     }
+
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
@@ -61,81 +59,61 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initialize() {
-        butFirstPage.text="<<"
         butPagePrev.text="<"
         butPageNext.text=">"
-        butLastPage.text=">>"
 
-        // initially, we don't this button active as there is no page 0.
+        // Initially, we don't this button active as there is no page 0.
         if  (!ProjectData.onSavedState) {
             butPagePrev.isEnabled=false
         }
-
-
-//        pageButtonsSaveState(true)
-
-
-        //ToDo: To truly find out the last page at runtime, then we need a coroutine listener or something.
-//        // loop thru pages to see what is the last page on the URL.
-//        enqueueInitialization=true
-//        var currentURLPage = ProjectData.maxPagesAtCompile
-//        while (enqueueFailed==false) {
-//            runEnqueue(service, currentURLPage)
-//            currentURLPage++
-//        }
-//
-//        enqueueInitialization=false
+        pageButtonsSaveState()
     }
 
 
     private fun setupListeners() {
         butPagePrev.setOnClickListener {
+            ProjectData.buttonClicked="prev"
+
             ProjectData.currentPage--
-            butPageNext.isEnabled = true
             if (ProjectData.currentPage==1) {
                 butPagePrev.isEnabled = false
+                ProjectData.butPrevPageState=false
+            } else{
+                butPagePrev.isEnabled = true
+                ProjectData.butNextPageState=butPageNext.isEnabled
             }
-            myList.clear()
-            runEnqueue(service, ProjectData.currentPage)
+            preparePage(ProjectData.currentPage)
         }
 
         butPageNext.setOnClickListener {
+            // We turn it off until network load is finished.
+            ProjectData.buttonClicked="next"
+            butPageNext.isEnabled=false
+
             ProjectData.currentPage++
             if (ProjectData.currentPage==ProjectData.maxPagesAtCompile) {
                 butPageNext.isEnabled = false
+                ProjectData.butNextPageState=butPageNext.isEnabled
             }
-            butPagePrev.isEnabled=true
-            myList.clear()
-            runEnqueue(service, ProjectData.currentPage)
-        }
-
-        butFirstPage.setOnClickListener {
-            ProjectData.currentPage=1
-            butPagePrev.isEnabled=false
-            butPageNext.isEnabled=true
-            myList.clear()
-            runEnqueue(service, ProjectData.currentPage)
-        }
-
-        butLastPage.setOnClickListener {
-            ProjectData.currentPage=ProjectData.maxPagesAtCompile
-            butPageNext.isEnabled=false
-            butPagePrev.isEnabled=true
-            myList.clear()
-            runEnqueue(service, ProjectData.currentPage)
+            preparePage(ProjectData.currentPage)
         }
     }
 
 
-    private fun runEnqueue(service: GetBlogService?, currentPage: Int = 1) {
+    private fun preparePage(currentPage: Int) {
+        myList.clear()
+        runEnqueue(service, currentPage)
+    }
+
+
+    private fun runEnqueue(service: GetBlogService?, currentPage: Int = 1)  {
         progressBar1.visibility=View.VISIBLE
 
         val call = service?.getAllArticles(currentPage.toString())
         call?.enqueue(object : Callback<List<BlogArticles>> {
             override fun onResponse(call: Call<List<BlogArticles>>, response: Response<List<BlogArticles>>) {
                 // Retrofit succeeded to get networking and is hitting main url.
-
-                Log.i("!!!", "retrofit succeeded!")
+                // Retrofit only responds after it gets the data.
                 if (response.isSuccessful) {
                     val body = response.body()  // The entire JSON body.
                     var bodyLastIndex = body!!.lastIndex
@@ -153,7 +131,6 @@ class MainActivity : AppCompatActivity() {
                         // Strips off some of the html codes that are not displaying correctly.
                         title=parseTitle(title)
 
-
                         // Adds to the recycler List DTO.
                         this@MainActivity.myList.add(
                             i,
@@ -163,23 +140,22 @@ class MainActivity : AppCompatActivity() {
 
                     Log.i("!!!", this@MainActivity.myList[0].title)
                     displayData(this@MainActivity.myList)
-//                    pageButtonsSaveState(false)
+                    pageButtonsRestoreState()
                     stopProgressBar()
-
                 } else {
                     // no data in query.
+                    var isLastPage=false
                     if (response.code() == 400) {
                         // Thankfully, the recyclerView doesn't fail here.
                         Log.i("!!!", "query is not found in retrofit!!")
-                        hitLastPage()
-//                        pageButtonsSaveState(false)
                     }
+                    pageButtonsRestoreState()
                     stopProgressBar()
                 }
             }
 
             override fun onFailure(call: Call<List<BlogArticles>>, t: Throwable) {
-                // Networking failed or cannog get to URL.
+                // No network or cannot get to URL.
                 Log.i("!!!", "retrofit failed!")
                 stopProgressBar()
             }
@@ -203,45 +179,39 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    private fun pageButtonsSaveState(initial: Boolean = true) {
-        // Enables the paging buttons..the reason I have to do this is that if enabled, before Retrofit loads, if
-        //   fails to open the correct page.
+    private fun pageButtonsSaveState() {
+         /* Enables the paging buttons...these are the reasons:
+            1) If you keep clicking NextPage, it eventually "goes past" page 5 and loads many more records in the List than it should.
+            2) The same thing happens with PrevPage.
+          */
 
-        if (initial) {
-            // save button sates
-            ProjectData.butFirstPageState = butFirstPage.isEnabled
-            ProjectData.butLastPageState = butLastPage.isEnabled
-            ProjectData.butPrevPageState = butPagePrev.isEnabled
-            ProjectData.butNextPageState = butPageNext.isEnabled
+        // save button sates
+        ProjectData.butPrevPageState = butPagePrev.isEnabled
+        ProjectData.butNextPageState = butPageNext.isEnabled
 
-            // now disable them until Retrofit enqueue is completed.
-            butFirstPage.isEnabled=false
-            butLastPage.isEnabled=false
-            butPagePrev.isEnabled=false
-            butPageNext.isEnabled=false
-        } else {
-            butFirstPage.isEnabled=ProjectData.butFirstPageState
-            butLastPage.isEnabled=ProjectData.butLastPageState
-            butPagePrev.isEnabled=ProjectData.butPrevPageState
-            butPageNext.isEnabled=ProjectData.butNextPageState
+    }
+
+    private fun pageButtonsRestoreState() {
+        /* Enables the paging buttons...these are the reasons:
+           1) If you keep clicking NextPage, it eventually "goes past" page 5 and loads many more records in the List than it should.
+           2) The same thing happens with PrevPage.
+         */
+
+        // save button states
+        if (ProjectData.currentPage > 1) {
+            butPagePrev.isEnabled=true
+            ProjectData.butPrevPageState=butPagePrev.isEnabled
+        }
+        if (ProjectData.currentPage < ProjectData.maxPages) {
+            butPageNext.isEnabled=true
+            ProjectData.butPrevPageState=butPageNext.isEnabled
         }
     }
 
-
-    private fun hitLastPage() {
-        if (enqueueInitialization) {
-            //  Determining last page...user didn't do this.
-            ProjectData.maxPage=ProjectData.currentPage - 1
-        } else {
-            ProjectData.currentPage--
-            butPageNext.isEnabled=false
-            ProjectData.butNextPageState=butPageNext.isEnabled
-        }
-    }
 
     fun displayData(list : MutableList<RecycleDTO>) {
         //
-        // RecyclerView
+        // Call RecyclerView Adapter
         //
         recyclerView.apply {
             val llm = LinearLayoutManager(this@MainActivity)

@@ -1,30 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools" android:layout_height="match_parent"
-    android:layout_width="match_parent"
->
+    android:layout_width="match_parent"  >
 
-    <!--MinWidth and Minheight are needed as Buttons default to 48dp! -->
-    <!-- butFirstPage and butLastPage cannot be used as of version 1.0 because don't absolutelty know the last page in JSON. -->
-
-    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:id="@+id/linearlayout"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
-    >
-
-        <!--android:background="@color/widget_background_lghtcolor"-->
-    <Button
-            android:id="@+id/butFirstPage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/pageButtonSize"
-            android:minWidth="@dimen/pageButtonSize"
-            android:enabled="false"
-            android:visibility="gone"
-            android:elevation="12dp"
-    >
-    </Button>
+        style="?android:attr/buttonBarStyle"   >
 
     <Button
             android:id="@+id/butPagePrev"
@@ -32,13 +15,12 @@
             android:layout_height="wrap_content"
             android:minHeight="@dimen/pageButtonSize"
             android:minWidth="@dimen/pageButtonSize"
-            android:background="@color/widget_background_lghtcolor"
             android:elevation="12dp"
-    >
+            android:background="@color/widget_background_lghtcolor"
+            android:enabled="false"
+            style="?android:attr/buttonBarButtonStyle" >
     </Button>
 
-
-    <!--MinWidth and Minheight are needed as Buttons default to 48dp! -->
     <Button
             android:id="@+id/butPageNext"
             android:layout_width="wrap_content"
@@ -48,20 +30,8 @@
             android:padding="0dp"
             android:background="@color/widget_background_lghtcolor"
             android:elevation="12dp"
-    >
-    </Button>
-    <Button
-            android:id="@+id/butLastPage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/pageButtonSize"
-            android:minWidth="@dimen/pageButtonSize"
-            android:padding="0dp"
-            android:enabled="false"
-            android:visibility="gone"
-            android:background="@color/widget_background_lghtcolor"
-            android:elevation="12dp"
-    >
+            android:enabled="true"
+            style="?android:attr/buttonBarButtonStyle"  >
     </Button>
     </LinearLayout>
 
@@ -78,14 +48,8 @@
             android:enabled="false"
             android:visibility="invisible"
             android:elevation="12dp"
-            android:indeterminateTint="@color/widget_background_lghtcolor"
-    >
+            android:indeterminateTint="@color/widget_background_lghtcolor"  >
     </ProgressBar>
-
-    <!--<ActionMenuView -->
-            <!--android:layout_width="wrap_content" android:layout_height="wrap_content"-->
-            <!--android:layout_toRightOf="@+id/butPageNext" >-->
-    <!--</ActionMenuView>-->
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -96,7 +60,6 @@
             android:scrollbarSize="4dp"
             android:layout_below="@+id/linearlayout"   >
     </android.support.v7.widget.RecyclerView>
-
 </RelativeLayout>
 
 
