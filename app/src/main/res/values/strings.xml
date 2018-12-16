@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Black Tax and White Benefits</string>
+    <integer name="title_maxlength">35</integer>
 </resources>

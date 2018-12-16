@@ -1,48 +1,106 @@
 package com.androidexample.blacktax
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.webkit.WebSettings
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_webview.*
 import java.text.SimpleDateFormat
 
 class WebViewActivity: AppCompatActivity() {
+    lateinit var titleData: String
+    lateinit var modPostedDate: String
+    lateinit var modDate: String
+    lateinit var urlLink: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_webview)
 
+        loadPageData()
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_share, menu)
+        return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val menuID = item.itemId
+        when (menuID) {
+            R.id.menuitem_share -> {
+                sendBlog(gatherTextMessage())
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun gatherTextMessage(): String {
+        // Assembles the string data in which to send via SMS.
+        var messageStr=""
+        val appTitle = getResources().getString(R.string.app_name)
+
+        messageStr += "From: " + appTitle + ":\n\n" + this.titleData+"\n\n" + this.urlLink
+
+        return messageStr
+    }
+
+
+    private fun sendBlog(smsMessage: String) {
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, smsMessage)
+        }
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent)
+        }
+    }
+
+
+
+    private fun loadPageData() {
         var blogArticleData = intent.getStringArrayListExtra(ProjectData.putExtra_BlogWebView)
 
-        // webViewDataArray array list.
         //
-//        webViewDataArray.add(0, ProjectData.myList.get(position).date)
-//        webViewDataArray.add(1, ProjectData.myList.get(position).title)
-//        webViewDataArray.add(2, ProjectData.myList.get(position).imageBlogURL)
-//        webViewDataArray.add(3, ProjectData.myList.get(position).htmlArticle)
-
-
         // Load the title.
-        var titleData = blogArticleData[1]
-        if (titleData.length > 35) {
-            titleData=titleData.substring(0,35)
+        //
+        this.titleData = blogArticleData[1]
+        val maxStringLength: Int = getResources().getInteger(R.integer.title_maxlength)
+        var currentPos=maxStringLength
+        lateinit var tempTitle: String
+
+        if (this.titleData.length > maxStringLength) {
+            // Ensure the title has a full word instead of cutting off.
+            var charStr = this.titleData.substring(maxStringLength - 1, maxStringLength)
+            while (charStr != " ") {
+                currentPos--
+                charStr = this.titleData.substring(currentPos - 1, currentPos)
+            }
+            tempTitle = this.titleData.substring(0, currentPos) + "..."
+        } else {
+            tempTitle = this.titleData
         }
-        title=titleData
+
+        this.titleData  = tempTitle
+
+        // Sets activity title.
+        title = tempTitle
+
 
         //
-        // Load the Posted Date
+        // Blog posted date: This is the format of the blog: 2018-11-21T21:10:05      (YYYY/month//day/T/hour/min/sec
         //
-        // See also on Dates: https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
-        // https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html
+        this.modPostedDate = blogDateConversion(blogArticleData[0])
 
-        // This is the format of the blog: 2018-11-21T21:10:05      (YYYY/month//day/T/hour/min/sec
-//        val postedDate=blogArticleData[0]
-        var modPostedDate = blogDateConversion(blogArticleData[0])
-
-
-//        var newDate = postedDate.subSequence(0, postedDate.indexOf("T", ignoreCase = true))
-        var modDate="Posted Date: " + modPostedDate
+        this.modDate="Posted Date: " + modPostedDate
         txtWebViewPostedDate.setText(modDate)
 
         //
@@ -55,6 +113,9 @@ class WebViewActivity: AppCompatActivity() {
             Picasso.get().load(R.drawable.no_image).into(imgWebView)
         }
 
+        // Load the URL Link
+        this.urlLink=blogArticleData[4]
+
 
         // Lastly, load the webview.
         // Note: WebView just needs the html from JSON...it automatically enters in the HTML header info.
@@ -66,9 +127,9 @@ class WebViewActivity: AppCompatActivity() {
         // Changes Webview HTML text size!!
         //
         val websettings : WebSettings = webview.settings
-//        var fontSize: Int = resources.getDimension(R.dimen.htmlTextSize).toInt()
         websettings.setDefaultFontSize(ProjectData.htmlTextSize)
     }
+
 
 
     private fun blogDateConversion(s: String): String {
@@ -95,10 +156,8 @@ class WebViewActivity: AppCompatActivity() {
         // Format the date is coming in...
         //        var postedDate="2018-11-21T21:10:05"   (YYYY/month//day/T/hour/min/sec
         // Note: This is not acceptable to Java in the SimpleDateFormat method!
-//        var modDate=getDateInstance().parse(postedDate).toString()
         var modDate= SimpleDateFormat("MM/dd/yyyy").parse("11/21/2018")
         Log.i("!!!", modDate.toString())
-//        var modDate = postedDate.format("MMM/dd/yyyy")
         return ""
     }
 }

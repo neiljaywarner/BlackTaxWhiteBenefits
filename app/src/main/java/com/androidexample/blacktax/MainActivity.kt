@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.androidexample.blacktax.Networking.BlogArticles
 import com.androidexample.blacktax.Networking.GetBlogService
 import com.androidexample.blacktax.Networking.RecycleDTO
@@ -18,6 +19,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
+
+
 class MainActivity : AppCompatActivity() {
 
     // Retrofit service.
@@ -25,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     var enqueueFailed=false
     var enqueueInitialization=false
     var myList = mutableListOf<RecycleDTO>()
+    var backPressed: Int = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +43,21 @@ class MainActivity : AppCompatActivity() {
         //
         runEnqueue(service, ProjectData.currentPage)
 
+    }
+
+
+    override fun onBackPressed() {
+        //                super.onBackPressed()
+
+        if (ProjectData.currentPage==1) {
+            backPressed++
+            if (backPressed == 1) {
+                Toast.makeText(this, "Press once more to exit", Toast.LENGTH_SHORT).show()
+            }
+            if (backPressed == 2) {
+                finish()
+            }
+        }
     }
 
 
@@ -86,6 +106,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         butPageNext.setOnClickListener {
+            // re-initialize backPressed since we're on a different page.
+            backPressed=0
+
+
             // We turn it off until network load is finished.
             ProjectData.buttonClicked="next"
             butPageNext.isEnabled=false

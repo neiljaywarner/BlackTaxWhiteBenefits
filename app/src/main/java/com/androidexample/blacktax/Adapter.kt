@@ -61,6 +61,7 @@ class Adapter(val myList: MutableList<RecycleDTO>): RecyclerView.Adapter<Adapter
             webViewDataArray.add(1, myList.get(position).title)
             webViewDataArray.add(2, myList.get(position).imageBlogURL)
             webViewDataArray.add(3, myList.get(position).htmlArticle)
+            webViewDataArray.add(4, myList.get(position).urlLink)
 
             val mIntentWebViewActivity = Intent(v?.context, WebViewActivity::class.java)
             // pass in some data to the intent.
