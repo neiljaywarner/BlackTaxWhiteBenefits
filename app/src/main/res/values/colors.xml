@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="widget_background_color">#78909C</color>
     <color name="widget_background_lghtcolor">#B0BEC5</color>
+    <color name="widget_background_dark">#4D5061</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.androidexample.blacktax.Networking
+package com.androidexample.blacktaxandwhitebenefits.Networking
 
 import retrofit2.Call
 import retrofit2.http.GET

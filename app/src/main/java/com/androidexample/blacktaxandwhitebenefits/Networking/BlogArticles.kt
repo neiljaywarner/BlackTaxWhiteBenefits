@@ -1,4 +1,4 @@
-package com.androidexample.blacktax.Networking
+package com.androidexample.blacktaxandwhitebenefits.Networking
 
 import com.google.gson.annotations.SerializedName
 

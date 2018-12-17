@@ -1,4 +1,4 @@
-package com.androidexample.blacktax
+package com.androidexample.blacktaxandwhitebenefits
 
 
 
@@ -9,10 +9,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.androidexample.blacktax.Networking.BlogArticles
-import com.androidexample.blacktax.Networking.GetBlogService
-import com.androidexample.blacktax.Networking.RecycleDTO
-import com.androidexample.blacktax.Networking.RetrofitClientInstance
+import com.androidexample.blacktaxandwhitebenefits.Networking.BlogArticles
+import com.androidexample.blacktaxandwhitebenefits.Networking.GetBlogService
+import com.androidexample.blacktaxandwhitebenefits.Networking.RecycleDTO
+import com.androidexample.blacktaxandwhitebenefits.Networking.RetrofitClientInstance
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,9 +47,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        //                super.onBackPressed()
-
-        if (ProjectData.currentPage==1) {
+//        if (ProjectData.currentPage==1) {
             backPressed++
             if (backPressed == 1) {
                 Toast.makeText(this, "Press once more to exit", Toast.LENGTH_SHORT).show()
@@ -57,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             if (backPressed == 2) {
                 finish()
             }
-        }
+//        }
     }
 
 
@@ -92,6 +90,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         butPagePrev.setOnClickListener {
+            // re-initialize backPressed since we're on a different page.
+            backPressed=0
+
             ProjectData.buttonClicked="prev"
 
             ProjectData.currentPage--

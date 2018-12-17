@@ -1,4 +1,4 @@
-package com.androidexample.blacktax
+package com.androidexample.blacktaxandwhitebenefits
 
 import android.content.Intent
 import android.os.Bundle
