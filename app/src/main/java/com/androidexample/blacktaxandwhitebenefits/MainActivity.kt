@@ -24,16 +24,15 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     // Retrofit service.
-    val service = RetrofitClientInstance.retrofitInstance?.create(GetBlogService::class.java)
-    var enqueueFailed=false
-    var enqueueInitialization=false
+    private val service = RetrofitClientInstance.retrofitInstance?.create(GetBlogService::class.java)
     var myList = mutableListOf<RecycleDTO>()
-    var backPressed: Int = 0
+    private var backPressed: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         initialize()
         setupListeners()
@@ -63,16 +62,6 @@ class MainActivity : AppCompatActivity() {
         // For some reason, this doesn't work if outPersistentState exists!
         super.onSaveInstanceState(outState)
         ProjectData.onSavedState=true
-    }
-
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        super.onRestoreInstanceState(savedInstanceState)
-    }
-
-
-    override fun onStop() {
-        super.onStop()
     }
 
 
@@ -141,17 +130,17 @@ class MainActivity : AppCompatActivity() {
                 // Retrofit only responds after it gets the data.
                 if (response.isSuccessful) {
                     val body = response.body()  // The entire JSON body.
-                    var bodyLastIndex = body!!.lastIndex
+                    val bodyLastIndex = body!!.lastIndex
 
                     // We're converting the weird JSON output to a standard data class.
                     for (i in 0..bodyLastIndex) {
                         var title = body[i].title.titleRendered
-                        var urlLink = body[i].URLLink
+                        val urlLink = body[i].URLLink
                         val date = body[i].date
                         val id = body[i].id
                         val modifiedDate = body[i].modifiedDate
-                        var htmlArticle = body[i].content.htmlRendered
-                        var imageBlogURL = body[i].imageBlogURL
+                        val htmlArticle = body[i].content.htmlRendered
+                        val imageBlogURL = body[i].imageBlogURL
 
                         // Strips off some of the html codes that are not displaying correctly.
                         title=parseTitle(title)

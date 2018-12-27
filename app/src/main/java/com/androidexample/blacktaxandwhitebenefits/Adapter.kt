@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.recycle_item.view.*
 import java.util.*
 
 class Adapter(val myList: MutableList<RecycleDTO>): RecyclerView.Adapter<Adapter.ViewHolder>() {
-    var currentRow: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.recycle_item, parent, false)
@@ -26,7 +25,7 @@ class Adapter(val myList: MutableList<RecycleDTO>): RecyclerView.Adapter<Adapter
     }
 
     override fun onBindViewHolder(holder: Adapter.ViewHolder, position: Int) {
-        holder.titleView.setText(myList[position].title)
+        holder.titleView.text = myList[position].title
 
         // Note: Image URL cannot be null.
         // URL can be a non-existant URL but does need to be something.
@@ -39,7 +38,7 @@ class Adapter(val myList: MutableList<RecycleDTO>): RecyclerView.Adapter<Adapter
     }
 
 
-    inner class ViewHolder (val v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
+    inner class ViewHolder (v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
         // No findViewById() because this version of Android Studio uses
         //    kotlin-android-extensions plugin, which avoids the use of needing findViewById().
         val titleView: TextView = v.txtTitle
@@ -57,11 +56,11 @@ class Adapter(val myList: MutableList<RecycleDTO>): RecyclerView.Adapter<Adapter
             val position  = layoutPosition
 
             val webViewDataArray = ArrayList<String>(4)
-            webViewDataArray.add(0, myList.get(position).date)
-            webViewDataArray.add(1, myList.get(position).title)
-            webViewDataArray.add(2, myList.get(position).imageBlogURL)
-            webViewDataArray.add(3, myList.get(position).htmlArticle)
-            webViewDataArray.add(4, myList.get(position).urlLink)
+            webViewDataArray.add(0, myList[position].date)
+            webViewDataArray.add(1, myList[position].title)
+            webViewDataArray.add(2, myList[position].imageBlogURL)
+            webViewDataArray.add(3, myList[position].htmlArticle)
+            webViewDataArray.add(4, myList[position].urlLink)
 
             val mIntentWebViewActivity = Intent(v?.context, WebViewActivity::class.java)
             // pass in some data to the intent.

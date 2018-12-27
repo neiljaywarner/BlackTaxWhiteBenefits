@@ -21,6 +21,7 @@
 
                         <ImageView
                                 android:id="@+id/imgBlogGraphic"
+                                android:contentDescription="@string/blog_article_content_description"
                                 android:padding="4dp"
                                 android:layout_width="@dimen/imgBlogSize"
                                 android:layout_height="@dimen/imgBlogSize"
@@ -35,7 +36,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:hint="title"
+                        android:hint="@string/title_hint"
                         android:textSize="17sp"
                         android:paddingBottom="20dp"
                         android:layout_centerVertical="true"
