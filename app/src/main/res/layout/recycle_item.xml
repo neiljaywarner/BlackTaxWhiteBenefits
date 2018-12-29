@@ -9,7 +9,7 @@
                       android:orientation="horizontal"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                        android:padding="4dp"   >
+                      android:padding="4dp"   >
 
                 <!-- acts as an imageview -->
                 <RelativeLayout
@@ -18,7 +18,7 @@
                         android:layout_height="@dimen/imgBlogSizeBorder"
                         android:background="@color/colorSecondaryLight"
                         android:paddingLeft="2dp"   >
-                    
+
                         <ImageView
                                 android:id="@+id/imgBlogGraphic"
                                 android:contentDescription="@string/blog_article_content_description"
