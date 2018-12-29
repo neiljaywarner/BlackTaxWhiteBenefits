@@ -5,9 +5,9 @@
     <shape android:shape="ring" android:innerRadiusRatio="3"
            android:thicknessRatio="6" android:useLevel="false">
 
-        <size android:width="120dp" android:height="120dp" />
+        <size android:width="76dp" android:height="76dp" />
         <gradient android:type="sweep" android:useLevel="false"
-                  android:startColor="@color/widget_background_dark"
+                  android:startColor="@color/colorSecondaryLight"
                   android:endColor="#00ffffff"
                   android:angle="0"
         />

@@ -16,7 +16,8 @@
             android:minHeight="@dimen/pageButtonSize"
             android:minWidth="@dimen/pageButtonSize"
             android:enabled="false"
-            android:background="@color/widget_background_lghtcolor"
+            android:background="@color/colorSecondaryLight"
+            android:textColor="@android:color/black"
             style="?android:attr/buttonBarButtonStyle" >
     </Button>
 
@@ -28,7 +29,8 @@
             android:minWidth="@dimen/pageButtonSize"
             android:padding="0dp"
             android:enabled="true"
-            android:background="@color/widget_background_lghtcolor"
+            android:background="@color/colorSecondaryLight"
+            android:textColor="@android:color/black"
             style="?android:attr/buttonBarButtonStyle"  >
     </Button>
     </LinearLayout>
