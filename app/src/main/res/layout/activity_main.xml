@@ -44,7 +44,9 @@
             android:layout_alignParentEnd="true"
             android:padding="0dp"
             android:enabled="false"
-            android:visibility="invisible" >
+            android:visibility="invisible"
+            android:indeterminateDrawable="@drawable/progress"
+    >
     </ProgressBar>
 
     <android.support.v7.widget.RecyclerView
