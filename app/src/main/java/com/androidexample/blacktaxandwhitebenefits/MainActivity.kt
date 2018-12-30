@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.androidexample.blacktaxandwhitebenefits.Networking.BlogArticles
 import com.androidexample.blacktaxandwhitebenefits.Networking.GetBlogService
 import com.androidexample.blacktaxandwhitebenefits.Networking.RecycleDTO
@@ -44,19 +43,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    override fun onBackPressed() {
-//        if (ProjectData.currentPage==1) {
-            backPressed++
-            if (backPressed == 1) {
-                Toast.makeText(this, "Press once more to exit", Toast.LENGTH_SHORT).show()
-            }
-            if (backPressed == 2) {
-                finish()
-            }
-//        }
-    }
-
-
     override fun onSaveInstanceState(outState: Bundle?) {
         // For some reason, this doesn't work if outPersistentState exists!
         super.onSaveInstanceState(outState)
@@ -78,9 +64,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         butPagePrev.setOnClickListener {
-            // re-initialize backPressed since we're on a different page.
-            backPressed=0
-
             ProjectData.buttonClicked="prev"
 
             // Turn "off" buttons until network load finishes
@@ -99,9 +82,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         butPageNext.setOnClickListener {
-            // re-initialize backPressed since we're on a different page.
-            backPressed=0
-
             // We turn it off until network load is finished.
             ProjectData.buttonClicked="next"
             butPageNext.isEnabled=false
