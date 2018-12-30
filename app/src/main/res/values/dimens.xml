@@ -5,7 +5,6 @@
 
     <!-- imgBlogSizeBorder should be 2dp bigger than imgBlogSize! -->
     <dimen name="imgBlogSizeBorder">144dp</dimen>
-    <dimen name="imgBlogSize">140dp</dimen>
 
     <dimen name="webViewImageSize">260dp</dimen>
 </resources>

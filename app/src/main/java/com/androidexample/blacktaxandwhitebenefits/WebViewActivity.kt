@@ -41,13 +41,12 @@ class WebViewActivity: AppCompatActivity() {
     }
 
     private fun sendBlog(appTitle: String, blogTitle: String, blogURL: String) {
-        val messageStr = "From: " + appTitle + ":\n\n" + blogTitle + "\n\n" + blogURL
-        val subjectStr = blogTitle
+        val messageStr = "From: $appTitle:\n\n$blogTitle\n\n$blogURL"
 
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
             // Adding Subject Intent in case user wants to send an email:
-            putExtra(Intent.EXTRA_SUBJECT, subjectStr)
+            putExtra(Intent.EXTRA_SUBJECT, blogTitle)
             putExtra(Intent.EXTRA_TEXT, messageStr)
         }
 
@@ -92,7 +91,7 @@ class WebViewActivity: AppCompatActivity() {
         //
         this.modPostedDate = blogDateConversion(blogArticleData[0])
 
-        this.modDate="Posted Date: " + modPostedDate
+        this.modDate="Posted Date: $modPostedDate"
         txtWebViewPostedDate.text = modDate
 
         //
@@ -140,7 +139,7 @@ class WebViewActivity: AppCompatActivity() {
         var dayPos=modifiedDate.indexOf("-", monthPos+1)
         val day=modifiedDate.substring(monthPos+1,modifiedDate.length)
 
-        return month  + "/" + day + "/" + year
+        return "$month/$day/$year"
     }
 
 

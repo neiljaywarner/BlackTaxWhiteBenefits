@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
     // Retrofit service.
     private val service = RetrofitClientInstance.retrofitInstance?.create(GetBlogService::class.java)
     var myList = mutableListOf<RecycleDTO>()
-    private var backPressed: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -145,7 +144,6 @@ class MainActivity : AppCompatActivity() {
                     stopProgressBar()
                 } else {
                     // no data in query.
-                    var isLastPage=false
                     if (response.code() == 400) {
                         // Thankfully, the recyclerView doesn't fail here.
                         Log.i("!!!", "query is not found in retrofit!!")
