@@ -7,7 +7,7 @@
             android:id="@+id/imgWebView"
             android:contentDescription="@string/webview_image"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="@dimen/webViewImageSize"
             android:scaleType="fitCenter"
             android:paddingBottom="2dp"  >
     </ImageView>
