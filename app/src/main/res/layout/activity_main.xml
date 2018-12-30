@@ -9,6 +9,8 @@
         android:orientation="horizontal"
         style="?android:attr/buttonBarStyle"   >
 
+            <!--android:background="@color/colorSecondaryLight"-->
+
     <Button
             android:id="@+id/butPagePrev"
             android:layout_width="wrap_content"
@@ -17,7 +19,7 @@
             android:minWidth="@dimen/pageButtonSize"
             android:layout_margin="8dp"
             android:enabled="false"
-            android:background="@color/colorSecondaryLight"
+            android:background="@color/colorWidgetLight"
             android:textColor="@android:color/black"
             style="?android:attr/buttonBarButtonStyle" >
     </Button>
@@ -30,7 +32,7 @@
             android:minWidth="@dimen/pageButtonSize"
             android:layout_margin="8dp"
             android:enabled="true"
-            android:background="@color/colorSecondaryLight"
+            android:background="@color/colorWidgetLight"
             android:textColor="@android:color/black"
             style="?android:attr/buttonBarButtonStyle"  >
     </Button>

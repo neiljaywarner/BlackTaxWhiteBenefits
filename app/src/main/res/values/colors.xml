@@ -8,4 +8,6 @@
     <color name="colorSecondary">#607d8b</color>
     <color name="colorSecondaryDark">#34515e</color>
     <color name="colorSecondaryLight">#8eacbb</color>
+
+    <color name="colorWidgetLight">#efefef</color>
 </resources>

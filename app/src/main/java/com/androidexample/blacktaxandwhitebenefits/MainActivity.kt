@@ -83,6 +83,10 @@ class MainActivity : AppCompatActivity() {
 
             ProjectData.buttonClicked="prev"
 
+            // Turn "off" buttons until network load finishes
+            butPagePrev.setBackgroundColor(resources.getColor(R.color.colorWidgetLight))
+            butPageNext.setBackgroundColor(resources.getColor(R.color.colorWidgetLight))
+
             ProjectData.currentPage--
             if (ProjectData.currentPage==1) {
                 butPagePrev.isEnabled = false
@@ -98,16 +102,20 @@ class MainActivity : AppCompatActivity() {
             // re-initialize backPressed since we're on a different page.
             backPressed=0
 
-
             // We turn it off until network load is finished.
             ProjectData.buttonClicked="next"
             butPageNext.isEnabled=false
+
+            // Turn "off" buttons until network load finishes
+            butPagePrev.setBackgroundColor(resources.getColor(R.color.colorWidgetLight))
+            butPageNext.setBackgroundColor(resources.getColor(R.color.colorWidgetLight))
 
             ProjectData.currentPage++
             if (ProjectData.currentPage==ProjectData.maxPagesAtCompile) {
                 butPageNext.isEnabled = false
                 ProjectData.butNextPageState=butPageNext.isEnabled
             }
+
             preparePage(ProjectData.currentPage)
         }
     }
@@ -210,14 +218,20 @@ class MainActivity : AppCompatActivity() {
            2) The same thing happens with PrevPage.
          */
 
-        // save button states
+        // Restore button states
         if (ProjectData.currentPage > 1) {
             butPagePrev.isEnabled=true
             ProjectData.butPrevPageState=butPagePrev.isEnabled
+            butPagePrev.setBackgroundColor(resources.getColor(R.color.colorSecondaryLight))
+            butPageNext.setBackgroundColor(resources.getColor(R.color.colorSecondaryLight))
         }
         if (ProjectData.currentPage < ProjectData.maxPages) {
             butPageNext.isEnabled=true
             ProjectData.butPrevPageState=butPageNext.isEnabled
+            butPageNext.setBackgroundColor(resources.getColor(R.color.colorSecondaryLight))
+        }
+        if (ProjectData.currentPage == ProjectData.maxPages) {
+            butPageNext.setBackgroundColor(resources.getColor(R.color.colorWidgetLight))
         }
     }
 
