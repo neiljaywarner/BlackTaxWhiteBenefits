@@ -45,7 +45,6 @@ class Adapter(val myList: MutableList<RecycleDTO>): RecyclerView.Adapter<Adapter
         val imageView: ImageView = v.imgBlogGraphic
 
 
-
         init {
             v.setOnClickListener(this)
         }
@@ -56,16 +55,21 @@ class Adapter(val myList: MutableList<RecycleDTO>): RecyclerView.Adapter<Adapter
             val position  = layoutPosition
 
             val webViewDataArray = ArrayList<String>(4)
-            webViewDataArray.add(0, myList[position].date)
-            webViewDataArray.add(1, myList[position].title)
-            webViewDataArray.add(2, myList[position].imageBlogURL)
-            webViewDataArray.add(3, myList[position].htmlArticle)
-            webViewDataArray.add(4, myList[position].urlLink)
+            try {
+                webViewDataArray.add(0, myList[position].date)
+                webViewDataArray.add(1, myList[position].title)
+                webViewDataArray.add(2, myList[position].imageBlogURL)
+                webViewDataArray.add(3, myList[position].htmlArticle)
+                webViewDataArray.add(4, myList[position].urlLink)
 
-            val mIntentWebViewActivity = Intent(v?.context, WebViewActivity::class.java)
-            // pass in some data to the intent.
-            mIntentWebViewActivity.putStringArrayListExtra(ProjectData.putExtra_BlogWebView, webViewDataArray)
-            v?.context?.startActivity(mIntentWebViewActivity)
+                val mIntentWebViewActivity = Intent(v?.context, WebViewActivity::class.java)
+                // pass in some data to the intent.
+                mIntentWebViewActivity.putStringArrayListExtra(ProjectData.putExtra_BlogWebView, webViewDataArray)
+                v?.context?.startActivity(mIntentWebViewActivity)
+            }
+            catch (e: IndexOutOfBoundsException) {
+                // don't do anything.
+            }
         }
     }
 }
