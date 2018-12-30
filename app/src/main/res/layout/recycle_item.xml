@@ -23,8 +23,8 @@
                                 android:id="@+id/imgBlogGraphic"
                                 android:contentDescription="@string/blog_article_content_description"
                                 android:padding="4dp"
-                                android:layout_width="144dp"
-                                android:layout_height="144dp"
+                                android:layout_width="@dimen/imgBlogSizeBorder"
+                                android:layout_height="@dimen/imgBlogSizeBorder"
                                 android:scaleType="centerInside"  >
                         </ImageView>
                 </RelativeLayout>
