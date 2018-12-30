@@ -33,28 +33,22 @@ class WebViewActivity: AppCompatActivity() {
         val menuID = item.itemId
         return when (menuID) {
             R.id.menuitem_share -> {
-                sendBlog(gatherTextMessage())
+                sendBlog(resources.getString(R.string.app_name), this.titleData, this.urlLink)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun gatherTextMessage(): String {
-        // Assembles the string data in which to send via SMS.
-        var messageStr=""
-        val appTitle = resources.getString(R.string.app_name)
+    private fun sendBlog(appTitle: String, blogTitle: String, blogURL: String) {
+        val messageStr = "From: " + appTitle + ":\n\n" + blogTitle + "\n\n" + blogURL
+        val subjectStr = blogTitle
 
-        messageStr += "From: " + appTitle + ":\n\n" + this.titleData+"\n\n" + this.urlLink
-
-        return messageStr
-    }
-
-
-    private fun sendBlog(smsMessage: String) {
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, smsMessage)
+            // Adding Subject Intent in case user wants to send an email:
+            putExtra(Intent.EXTRA_SUBJECT, subjectStr)
+            putExtra(Intent.EXTRA_TEXT, messageStr)
         }
 
         if (intent.resolveActivity(packageManager) != null) {
