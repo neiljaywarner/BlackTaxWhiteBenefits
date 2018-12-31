@@ -3,13 +3,25 @@
                 android:layout_height="match_parent"
                 android:layout_width="match_parent">
 
+    <ProgressBar
+            android:id="@+id/progressBar1"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/progressBarSize"
+            android:layout_margin="8dp"
+            android:enabled="false"
+            android:visibility="invisible"
+            android:indeterminateDrawable="@drawable/progress" >
+    </ProgressBar>
+
         <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:id="@+id/linearlayout"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         style="?android:attr/buttonBarStyle"   >
-
-            <!--android:background="@color/colorSecondaryLight"-->
 
     <Button
             android:id="@+id/butPagePrev"
@@ -37,19 +49,6 @@
             style="?android:attr/buttonBarButtonStyle"  >
     </Button>
     </LinearLayout>
-
-    <ProgressBar
-            android:id="@+id/progressBar1"
-            android:layout_marginEnd="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/progressBarSize"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="8dp"
-            android:enabled="false"
-            android:visibility="invisible"
-            android:indeterminateDrawable="@drawable/progress" >
-    </ProgressBar>
-
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
