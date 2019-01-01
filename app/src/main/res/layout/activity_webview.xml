@@ -1,40 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
+        <!-- TOOD: Lint warning says this should be wrap_content.. confirm -->
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/imgWebView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="@dimen/webViewImageSize"
+            android:contentDescription="@string/webview_image"
+            android:paddingBottom="2dp"
+            android:scaleType="fitCenter" />
 
-            <ImageView
-                    android:id="@+id/imgWebView"
-                    android:contentDescription="@string/webview_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/webViewImageSize"
-                    android:scaleType="fitCenter"
-                    android:paddingBottom="2dp"  >
-            </ImageView>
+        <TextView
+            android:id="@+id/txtWebViewPostedDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgWebView"
+            android:gravity="center_horizontal"
+            android:paddingTop="4dp"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            tools:text="@string/posted_date_11_21_2018" />
 
-            <TextView
-                    android:id="@+id/txtWebViewPostedDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/imgWebView"
-                    android:hint="@string/posted_date_11_21_2018"
-                    android:gravity="center_horizontal"
-                    android:textSize="14sp"
-                    android:textStyle="italic"
-                    android:paddingTop="4dp"   >
-            </TextView>
-
-            <WebView
-                    android:id="@+id/webview"
-                    android:layout_margin="8dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txtWebViewPostedDate"  >
-            </WebView>
-        </RelativeLayout>
-    </ScrollView>
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtWebViewPostedDate"
+            android:layout_margin="8dp" />
+    </RelativeLayout>
+</ScrollView>
