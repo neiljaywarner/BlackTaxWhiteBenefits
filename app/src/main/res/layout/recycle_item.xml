@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"   >
+        android:padding="4dp">
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:orientation="horizontal"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:padding="4dp"   >
+        <!-- acts as an imageview -->
+        <RelativeLayout
+            android:id="@+id/rlrecycleitem"
+            android:layout_width="@dimen/imgBlogSizeBorder"
+            android:layout_height="@dimen/imgBlogSizeBorder"
+            android:background="@color/colorSecondaryLight"
+            android:paddingLeft="2dp">
 
-                <!-- acts as an imageview -->
-                <RelativeLayout
-                        android:id="@+id/rlrecycleitem"
-                        android:layout_width="@dimen/imgBlogSizeBorder"
-                        android:layout_height="@dimen/imgBlogSizeBorder"
-                        android:background="@color/colorSecondaryLight"
-                        android:paddingLeft="2dp"   >
-
-                        <ImageView
-                                android:id="@+id/imgBlogGraphic"
-                                android:contentDescription="@string/blog_article_content_description"
-                                android:padding="4dp"
-                                android:layout_width="@dimen/imgBlogSizeBorder"
-                                android:layout_height="@dimen/imgBlogSizeBorder"
-                                android:scaleType="centerInside"  >
-                        </ImageView>
-                </RelativeLayout>
-
-                <!-- android:paddingBottom="20dp" - makes the centering look just a bit better -->
-                <TextView
-                        android:id="@+id/txtTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:hint="@string/title_hint"
-                        android:textSize="17sp"
-                        android:paddingBottom="20dp"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/rlrecycleitem"
-                                >
-                </TextView>
+            <ImageView
+                    android:id="@+id/imgBlogGraphic"
+                    android:contentDescription="@string/blog_article_content_description"
+                    android:padding="4dp"
+                    android:layout_width="@dimen/imgBlogSizeBorder"
+                    android:layout_height="@dimen/imgBlogSizeBorder"
+                    android:scaleType="centerInside">
+            </ImageView>
         </RelativeLayout>
+
+        <!-- android:paddingBottom="20dp" - makes the centering look just a bit better -->
+        <TextView
+                android:id="@+id/txtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:hint="@string/title_hint"
+                android:textSize="17sp"
+                android:paddingBottom="20dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/rlrecycleitem">
+            </TextView>
+    </RelativeLayout>
 
     <!-- Generates a line -->
     <View
-            android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:background="#BDBDBD"  >
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="#BDBDBD">
     </View>
 </LinearLayout>
