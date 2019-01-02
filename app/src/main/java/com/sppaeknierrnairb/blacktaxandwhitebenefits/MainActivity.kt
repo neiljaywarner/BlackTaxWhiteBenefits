@@ -1,4 +1,4 @@
-package com.androidexample.blacktaxandwhitebenefits
+package com.sppaeknierrnairb.blacktaxandwhitebenefits
 
 
 
@@ -8,10 +8,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
-import com.androidexample.blacktaxandwhitebenefits.Networking.BlogArticles
-import com.androidexample.blacktaxandwhitebenefits.Networking.GetBlogService
-import com.androidexample.blacktaxandwhitebenefits.Networking.RecycleDTO
-import com.androidexample.blacktaxandwhitebenefits.Networking.RetrofitClientInstance
+import com.sppaeknierrnairb.blacktaxandwhitebenefits.Networking.BlogArticles
+import com.sppaeknierrnairb.blacktaxandwhitebenefits.Networking.GetBlogService
+import com.sppaeknierrnairb.blacktaxandwhitebenefits.Networking.RecycleDTO
+import com.sppaeknierrnairb.blacktaxandwhitebenefits.Networking.RetrofitClientInstance
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback

@@ -1,4 +1,4 @@
-package com.androidexample.blacktaxandwhitebenefits
+package com.sppaeknierrnairb.blacktaxandwhitebenefits
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

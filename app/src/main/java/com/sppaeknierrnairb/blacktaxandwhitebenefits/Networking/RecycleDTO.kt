@@ -1,4 +1,4 @@
-package com.androidexample.blacktaxandwhitebenefits.Networking
+package com.sppaeknierrnairb.blacktaxandwhitebenefits.Networking
 
 data class RecycleDTO (
     // This List is what is getting passed into the RecyclerView.

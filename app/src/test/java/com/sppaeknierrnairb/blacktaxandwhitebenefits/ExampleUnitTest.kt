@@ -1,4 +1,4 @@
-package com.androidexample.blacktaxandwhitebenefits
+package com.sppaeknierrnairb.blacktaxandwhitebenefits
 
 import org.junit.Test
 

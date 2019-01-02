@@ -1,4 +1,4 @@
-package com.androidexample.blacktaxandwhitebenefits
+package com.sppaeknierrnairb.blacktaxandwhitebenefits
 
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.androidexample.blacktaxandwhitebenefits.Networking.RecycleDTO
+import com.sppaeknierrnairb.blacktaxandwhitebenefits.Networking.RecycleDTO
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.recycle_item.view.*
 import java.util.*
