@@ -9,4 +9,5 @@ data class RecycleDTO (
     val modifiedDate: String,
     val htmlArticle: String,
     val imageBlogURL: String
+
 )
