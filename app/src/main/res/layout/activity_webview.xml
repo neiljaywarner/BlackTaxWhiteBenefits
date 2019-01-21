@@ -7,34 +7,32 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <!-- TOOD: Lint warning says this should be wrap_content.. confirm -->
 
         <ImageView
             android:id="@+id/imgWebView"
-            android:contentDescription="@string/webview_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/webViewImageSize"
-            android:scaleType="fitCenter"
-            android:paddingBottom="2dp">
-        </ImageView>
+            android:contentDescription="@string/webview_image"
+            android:paddingBottom="2dp"
+            android:scaleType="fitCenter" />
 
         <TextView
             android:id="@+id/txtWebViewPostedDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imgWebView"
-            android:hint="@string/posted_date_11_21_2018"
             android:gravity="center_horizontal"
+            android:paddingTop="4dp"
             android:textSize="14sp"
             android:textStyle="italic"
-            android:paddingTop="4dp">
-        </TextView>
+            tools:text="@string/posted_date_11_21_2018" />
 
         <WebView
             android:id="@+id/webview"
-            android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtWebViewPostedDate">
-        </WebView>
+            android:layout_below="@+id/txtWebViewPostedDate"
+            android:layout_margin="8dp" />
     </RelativeLayout>
 </ScrollView>

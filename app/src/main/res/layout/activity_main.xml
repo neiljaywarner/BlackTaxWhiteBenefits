@@ -12,8 +12,7 @@
         android:layout_centerVertical="true"
         android:layout_margin="8dp"
         android:layout_marginEnd="8dp"
-        android:visibility="invisible">
-    </ProgressBar>
+        android:visibility="invisible" />
 
     <LinearLayout
         android:id="@+id/linearlayout"
@@ -25,29 +24,27 @@
 
         <Button
             android:id="@+id/butPagePrev"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/buttonBarButtonStyle"
+            android:layout_margin="8dp"
+            android:background="@color/colorWidgetLight"
+            android:enabled="false"
             android:minWidth="@dimen/pageButtonSize"
             android:minHeight="@dimen/pageButtonSize"
-            android:layout_margin="8dp"
-            android:enabled="false"
-            android:background="@color/colorWidgetLight"
-            android:textColor="@android:color/black">
-        </Button>
+            android:textColor="@android:color/black"/>
 
         <Button
             android:id="@+id/butPageNext"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@color/colorWidgetLight"
+            android:enabled="true"
             android:minWidth="@dimen/pageButtonSize"
             android:minHeight="@dimen/pageButtonSize"
-            android:layout_margin="8dp"
-            android:enabled="true"
-            android:background="@color/colorWidgetLight"
-            android:textColor="@android:color/black">
-        </Button>
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -57,8 +54,6 @@
         android:layout_below="@+id/linearlayout"
         android:paddingTop="12dp"
         android:scrollbarSize="4dp"
-        android:scrollbars="vertical">
-    </android.support.v7.widget.RecyclerView>
+        android:scrollbars="vertical" />
+
 </RelativeLayout>
-
-
