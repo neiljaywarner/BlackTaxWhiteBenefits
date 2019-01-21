@@ -137,7 +137,6 @@ class WebViewActivity: AppCompatActivity() {
         val monthPos=modifiedDate.indexOf("-", yearPos+1)
         val month=modifiedDate.substring(yearPos+1,monthPos)
 
-        var dayPos=modifiedDate.indexOf("-", monthPos+1)
         val day=modifiedDate.substring(monthPos+1,modifiedDate.length)
 
         return "$month/$day/$year"
